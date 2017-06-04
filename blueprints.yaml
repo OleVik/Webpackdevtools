@@ -1,0 +1,36 @@
+name: Webpackdevtools
+version: 0.1.0
+description: webpack development plugin for Grav CMS
+icon: plug
+author:
+  name: Jean-Marie Belloteau
+  email: jmbelloteau@gmail.com
+homepage: https://github.com/jean-marie-belloteau/grav-plugin-webpackdevtools
+demo: http://demo.yoursite.com
+keywords: grav, plugin, etc
+bugs: https://github.com/jean-marie-belloteau/grav-plugin-webpackdevtools/issues
+docs: https://github.com/jean-marie-belloteau/grav-plugin-webpackdevtools/blob/develop/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+
+    mode:
+      type: select
+      size: small
+      label: PLUGIN_WEBPACKDEVTOOLS.MODE
+      default: 'production'
+      options:
+        development: Development
+        production: Production

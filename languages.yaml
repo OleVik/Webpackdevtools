@@ -1,0 +1,23 @@
+en:
+  PLUGIN_WEBPACKDEVTOOLS:
+    STATUS: 'Plugin status'
+    MODE: Mode
+
+de:
+  PLUGIN_WEBPACKDEVTOOLS:
+    STATUS: 'Plugin Status'
+    MODE: 'Modus'
+
+ru:
+  PLUGIN_WEBPACKDEVTOOLS:
+    STATUS: 'Состояние плагина'
+    MODE: 'Режим'
+
+fr:
+  PLUGIN_WEBPACKDEVTOOLS:
+    STATUS: 'Statut du plugin'
+    MODE: 'Mode'
+ro:
+  PLUGIN_WEBPACKDEVTOOLS:
+    STATUS: 'Statut modul'
+    MODE: 'Mod'
