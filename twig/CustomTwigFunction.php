@@ -74,10 +74,12 @@ class WebpackTwigFunction extends Twig_Extension
 
             return '<script src="' . $assetPath . '" async></script>';
         } elseif ($this->mode == 'production') {
-            $webpack_assets = $locator->findResource('theme://assets/webpack-assets.json', true);
-            if (file_exists($webpack_assets)) {
-                $assetsArray = json_decode(file_get_contents($webpack_assets), true);
+            $webpackAssets = $locator->findResource('theme://assets/webpack-assets.json', true);
+            if (file_exists($webpackAssets)) {
+                $assetsArray = json_decode(file_get_contents($webpackAssets), true);
                 $assetPath = $assetsArray[$filename];
+                $themePath = $locator->findResource('theme://', false);
+                Grav::instance()['debugger']->addMessage($themePath);
                 $css = $locator->findResource('theme://' . $assetPath['css'], true);
                 $js = $locator->findResource('theme://' . $assetPath['js'], true);
                 if ($inline) {
@@ -90,12 +92,11 @@ class WebpackTwigFunction extends Twig_Extension
                     }
                 } else {
                     if (!isset($fileExt)) {
-                        Grav::instance()['assets']->addCss('theme://' . $assetPath['css']);
-                        Grav::instance()['assets']->addJs('theme://' . $assetPath['js']);
-                    } elseif ($fileExt == 'css') {
-                        Grav::instance()['assets']->addCss('theme://' . $assetPath['css']);
-                    } elseif ($fileExt == 'js') {
-                        Grav::instance()['assets']->addJs('theme://' . $assetPath['js']);
+                        // Grav::instance()['assets']->addCss('theme://' . $assetPath['css']);
+                        // Grav::instance()['assets']->addJs('theme://' . $assetPath['js']);
+                        $cssReference = '<link type="text/css" href="' . $themePath . $assetPath['css'] . '" />';
+                        $jsReference = '<script type="text/javascript" src="' . $themePath . $assetPath['js'] . '"></script>';
+                        return $cssReference . $jsReference;
                     }
                 }
             }
