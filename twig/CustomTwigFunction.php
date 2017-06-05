@@ -79,24 +79,27 @@ class WebpackTwigFunction extends Twig_Extension
                 $assetsArray = json_decode(file_get_contents($webpackAssets), true);
                 $assetPath = $assetsArray[$filename];
                 $themePath = $locator->findResource('theme://', false);
-                Grav::instance()['debugger']->addMessage($themePath);
-                $css = $locator->findResource('theme://' . $assetPath['css'], true);
-                $js = $locator->findResource('theme://' . $assetPath['js'], true);
                 if ($inline) {
                     if (!$fileExt) {
                         return;
                     } elseif ($fileExt == 'css') {
+                        $css = $locator->findResource('theme://' . $assetPath['css'], true);
                         return '<style>' . file_get_contents($css) . '</style>';
                     } elseif ($fileExt == 'js') {
+                        $js = $locator->findResource('theme://' . $assetPath['js'], true);
                         return '<script>' . file_get_contents($js) . '</script>';
                     }
                 } else {
                     if (!isset($fileExt)) {
-                        // Grav::instance()['assets']->addCss('theme://' . $assetPath['css']);
-                        // Grav::instance()['assets']->addJs('theme://' . $assetPath['js']);
                         $cssReference = '<link type="text/css" href="' . $themePath . $assetPath['css'] . '" />';
                         $jsReference = '<script type="text/javascript" src="' . $themePath . $assetPath['js'] . '"></script>';
                         return $cssReference . $jsReference;
+                    } elseif ($fileExt == 'css') {
+                        $cssReference = '<link type="text/css" href="' . $themePath . $assetPath['css'] . '" />';
+                        return $cssReference;
+                    } elseif ($fileExt == 'js') {
+                        $jsReference = '<script type="text/javascript" src="' . $themePath . $assetPath['js'] . '"></script>';
+                        return $jsReference;
                     }
                 }
             }
